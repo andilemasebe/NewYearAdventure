@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy New Year</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      /* styles.css */
+/* styles.css */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+    background: 
+        linear-gradient(to bottom, rgba(0, 4, 40, 0.8), rgba(0, 78, 146, 0.8)), 
+        url('background-image.jpg') no-repeat center center/cover;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+    z-index: 10;
+}
+
+h1 {
+    font-size: 4rem;
+    margin: 0;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+#countdown {
+    font-size: 2rem;
+    margin-top: 20px;
+}
+
+#fireworks {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+
+/* Button Styles */
+.read-btn, .back-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff9900;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.read-btn:hover, .back-btn:hover {
+    background-color: #cc7a00;
+}
+
+/* Letter Overlay */
+.letter-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none; /* Hidden initially */
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.letter {
+    background: #fff;
+    color: #333;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.letter h2 {
+    margin-top: 0;
+    font-size: 1.8rem;
+    color: #444;
+}
+
+.letter p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
+
+
+
+.download-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.download-btn:hover {
+    background-color: #1e7e34;
+}
+
+
+.letter-overlay {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.letter-overlay.show {
+    opacity: 1;
+}
+
+
+.letter-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none; /* Hidden initially */
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+    <h1>Happy New Year 2025!</h1>
+    <p id="countdown">00:00:00</p>
+    <canvas id="fireworks"></canvas>
+    <button class="read-btn" onclick="showLetter()">Read Message</button>
+</div>
+
+<div class="letter-overlay" id="letterOverlay">
+    <div class="letter">
+        <h2>Dear Friend,</h2>
+        <p id="messageText">
+            As we step into 2025, let’s celebrate new beginnings, cherished moments, 
+            and exciting opportunities. May your year be filled with happiness, 
+            success, and peace. 
+        </p>
+        <p>Happy New Year!</p>
+        <button class="back-btn" onclick="hideLetter()">Back</button>
+        <button class="download-btn" onclick="downloadPDF()">Download as PDF</button>
+    </div>
+</div>
+
+
+    <script src="script.js"></script>
+    <script>
+      // script.js
+const canvas = document.getElementById('fireworks');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// Firework effect (simple particle system)
+const fireworks = [];
+function createFirework() {
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * canvas.height / 2;
+    for (let i = 0; i < 100; i++) {
+        fireworks.push({
+            x: x,
+            y: y,
+            dx: (Math.random() - 0.5) * 4,
+            dy: (Math.random() - 0.5) * 4,
+            size: Math.random() * 3 + 1,
+            color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+            life: Math.random() * 100 + 50
+        });
+    }
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    fireworks.forEach((fw, index) => {
+        ctx.beginPath();
+        ctx.arc(fw.x, fw.y, fw.size, 0, Math.PI * 2);
+        ctx.fillStyle = fw.color;
+        ctx.fill();
+        fw.x += fw.dx;
+        fw.y += fw.dy;
+        fw.life--;
+        if (fw.life <= 0) fireworks.splice(index, 1);
+    });
+    if (Math.random() < 0.05) createFirework();
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+
+// Add to script.js
+function countdown() {
+    const targetDate = new Date('Jan 1, 2025 00:00:00').getTime();
+    const now = new Date().getTime();
+    const difference = targetDate - now;
+
+    const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((difference / (1000 * 60)) % 60);
+    const seconds = Math.floor((difference / 1000) % 60);
+
+    document.getElementById('countdown').textContent = 
+        `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+setInterval(countdown, 1000);
+countdown();
+
+
+// Show Letter
+function showLetter() {
+    document.getElementById('letterOverlay').style.display = 'flex';
+}
+
+// Hide Letter
+function hideLetter() {
+    document.getElementById('letterOverlay').style.display = 'none';
+}
+
+
+async function downloadPDF() {
+    // Import jsPDF from the library
+    const { jsPDF } = window.jspdf;
+
+    // Initialize jsPDF
+    const doc = new jsPDF();
+
+    // Get the message text
+    const message = document.getElementById('messageText').innerText;
+
+    // Add content to the PDF
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(16);
+    doc.text("Happy New Year 2025!", 20, 20); // Title
+    doc.setFontSize(12);
+    doc.text(message, 20, 40); // Message
+
+    // Save the PDF
+    doc.save("Happy_New_Year_Message.pdf");
+}
+
+
+
+async function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+
+    // Initialize jsPDF
+    const doc = new jsPDF();
+
+    // Add a header with a festive title
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(20);
+    doc.setTextColor(255, 87, 34); // Festive color
+    doc.text("Happy New Year 2025!", 105, 20, { align: "center" }); // Center-aligned
+
+    // Add a horizontal line below the title
+    doc.setDrawColor(255, 87, 34);
+    doc.line(20, 25, 190, 25); // x1, y1, x2, y2
+
+    // Add a festive image (e.g., fireworks or a logo)
+    const imageUrl = "https://example.com/fireworks.png"; // Replace with your image URL
+    const imageResponse = await fetch(imageUrl); // Fetch the image
+    const imageBlob = await imageResponse.blob();
+    const imageData = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.readAsDataURL(imageBlob);
+    });
+
+    doc.addImage(imageData, "PNG", 70, 30, 70, 40); // x, y, width, height
+
+    // Add the message text below the image
+    const message = document.getElementById("messageText").innerText;
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0); // Black color
+    doc.text(message, 20, 80, { maxWidth: 170, lineHeightFactor: 1.5 });
+
+    // Add a footer with page numbers or a custom message
+    doc.setFont("helvetica", "italic");
+    doc.setFontSize(10);
+    doc.setTextColor(100); // Grey color
+    doc.text("Generated with love for 2025", 105, 290, { align: "center" });
+
+    // Save the PDF
+    doc.save("Happy_New_Year_Message_Customized.pdf");
+}
+
+
+
+function countdown() {
+    const targetDate = new Date('Jan 1, 2025 00:00:00').getTime();
+    const now = new Date().getTime();
+    const difference = targetDate - now;
+
+    if (difference > 0) {
+        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((difference / (1000 * 60)) % 60);
+        const seconds = Math.floor((difference / 1000) % 60);
+
+        document.getElementById('countdown').textContent =
+            `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    } else {
+        // Hide the countdown timer
+        document.getElementById('countdown').style.display = 'none';
+
+        // Show the New Year message
+        document.getElementById('letterOverlay').style.display = 'flex';
+
+        // Stop the countdown timer from running further
+        clearInterval(countdownInterval);
+    }
+}
+
+// Start the countdown
+const countdownInterval = setInterval(countdown, 1000);
+countdown();
+
+document.getElementById('letterOverlay').style.display = 'flex';
+
+
+document.getElementById('letterOverlay').classList.add('show');
+
+    </script>
+</body>
+</html>
