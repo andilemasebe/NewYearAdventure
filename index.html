@@ -121,31 +121,6 @@ h1 {
 }
 
 
-.letter-overlay {
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-}
-
-.letter-overlay.show {
-    opacity: 1;
-}
-
-
-.letter-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: none; /* Hidden initially */
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-}
-
-
-
     </style>
 </head>
 <body>
@@ -313,40 +288,6 @@ async function downloadPDF() {
     doc.save("Happy_New_Year_Message_Customized.pdf");
 }
 
-
-
-function countdown() {
-    const targetDate = new Date('Jan 1, 2025 00:00:00').getTime();
-    const now = new Date().getTime();
-    const difference = targetDate - now;
-
-    if (difference > 0) {
-        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((difference / (1000 * 60)) % 60);
-        const seconds = Math.floor((difference / 1000) % 60);
-
-        document.getElementById('countdown').textContent =
-            `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    } else {
-        // Hide the countdown timer
-        document.getElementById('countdown').style.display = 'none';
-
-        // Show the New Year message
-        document.getElementById('letterOverlay').style.display = 'flex';
-
-        // Stop the countdown timer from running further
-        clearInterval(countdownInterval);
-    }
-}
-
-// Start the countdown
-const countdownInterval = setInterval(countdown, 1000);
-countdown();
-
-document.getElementById('letterOverlay').style.display = 'flex';
-
-
-document.getElementById('letterOverlay').classList.add('show');
 
     </script>
 </body>
