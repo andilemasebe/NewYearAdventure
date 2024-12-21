@@ -133,7 +133,7 @@ h1 {
 
 <div class="letter-overlay" id="letterOverlay">
     <div class="letter">
-        <h2>Dear Friend,</h2>
+        <h2>Dear Friend,Family & Colleagues</h2>
         <p id="messageText">
             As we step into 2025, let’s celebrate new beginnings, cherished moments, 
             and exciting opportunities. May your year be filled with happiness, 
@@ -141,7 +141,7 @@ h1 {
         </p>
         <p>Happy New Year!</p>
         <button class="back-btn" onclick="hideLetter()">Back</button>
-        <button class="download-btn" onclick="downloadPDF()">Download as PDF</button>
+        <!-- <button class="download-btn" onclick="downloadPDF()">Download as PDF</button> -->
     </div>
 </div>
 
@@ -231,14 +231,14 @@ async function downloadPDF() {
     const message = document.getElementById('messageText').innerText;
 
     // Add content to the PDF
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(16);
-    doc.text("Happy New Year 2025!", 20, 20); // Title
-    doc.setFontSize(12);
-    doc.text(message, 20, 40); // Message
+    // doc.setFont("helvetica", "normal");
+    //doc.setFontSize(16);
+    //doc.text("Happy New Year 2025!", 20, 20); // Title
+    //doc.setFontSize(12);
+    //doc.text(message, 20, 40); // Message
 
     // Save the PDF
-    doc.save("Happy_New_Year_Message.pdf");
+    // doc.save("Happy_New_Year_Message.pdf");
 }
 
 
