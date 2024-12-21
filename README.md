@@ -21,7 +21,7 @@
 - Any technology I’m currently learning
 
 📫 How to reach me:
-- Email: [andilemasebe@example.com](mailto:andilemasebe@example.com)
+- Email: [andilemasebe@example.com](mailto:andilemasebe@gmail.com)
 - LinkedIn: [LinkedIn Profile](https://www.linkedin.com/in/andilemasebe)
 
 ⚡ Fun fact:
